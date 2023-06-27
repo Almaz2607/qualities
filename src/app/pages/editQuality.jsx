@@ -8,10 +8,22 @@ const EditQualityPage = () => {
   const id = useParams().id;
   const qualityEndPoint = `http://localhost:4000/api/v1/quality/${id}`;
 
-  const handleSubmit = (data) => {
-    axios
-      .put(qualityEndPoint, data)
-      .then((res) => console.log(res.data.content));
+  const handleSubmit = async (data) => {
+    try {
+      await axios
+        .put(qualityEndPoint, data)
+        .then((res) => console.log(res.data.content));
+    } catch (error) {
+      const expectedErrors =
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status < 500;
+      if (!expectedErrors) {
+        console.log("Unexpected Error");
+      } else {
+        console.log("Expected Error");
+      }
+    }
   };
 
   useEffect(async () => {

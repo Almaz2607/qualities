@@ -11,7 +11,6 @@ const EditForm = ({ data, onSubmit }) => {
   };
 
   const handleChange = (target) => {
-    console.log(target);
     setForm((prevState) => ({
       ...prevState,
       [target.name]: target.value,
